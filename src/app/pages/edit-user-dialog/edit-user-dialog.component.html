@@ -1,0 +1,57 @@
+<h1 mat-dialog-title>
+  <span>Edit user</span>
+</h1>
+<div mat-dialog-content>
+  <form [formGroup]="userForm" class="dialog">
+    <mat-form-field class="w-100">
+      <input
+        matInput
+        type="text"
+        placeholder="First Name"
+        formControlName="firstName"
+        maxlength="50"
+        autocomplete="off"
+      />
+    </mat-form-field>
+    <mat-form-field class="w-100">
+      <mat-label>Last Name</mat-label>
+      <input
+        matInput
+        type="text"
+        placeholder="last Code"
+        formControlName="lastName"
+        autocomplete="off"
+      />
+    </mat-form-field>
+    <mat-form-field class="w-100">
+      <mat-label>Age</mat-label>
+      <input
+        matInput
+        placeholder="Age"
+        formControlName="age"
+        autocomplete="off"
+      />
+    </mat-form-field>
+    <mat-form-field class="w-100 ">
+      <mat-label>Mobile</mat-label>
+      <input
+        matInput
+        placeholder="Mobile"
+        formControlName="mobile"
+        autocomplete="off"
+      />
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="end center">
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="updateUser()"
+    title=" click here to update this user"
+    [disabled]="userForm.invalid"
+  >
+    <span>Update</span>
+  </button>
+  <button mat-raised-button color="warn" (click)="cancel()">Cancel</button>
+</div>

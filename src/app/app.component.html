@@ -1,0 +1,114 @@
+<form [formGroup]="userForm">
+  <mat-card class="custom-card">
+    <mat-card-header class="bg-accent p-1" fxLayoutAlign="space-between center">
+      <mat-card-title class="m-0"><h3>Save User</h3></mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-form-field class="w-100 p-1">
+        <input
+          matInput
+          type="text"
+          placeholder="First name"
+          formControlName="firstName"
+          autofocus
+          maxlength="50"
+          autocomplete="off"
+        />
+      </mat-form-field>
+      <mat-form-field class="w-100 p-1">
+        <input
+          matInput
+          type="text"
+          placeholder="Last Name"
+          formControlName="lastName"
+          required
+          autocomplete="off"
+        />
+      </mat-form-field>
+      <mat-form-field class="w-100">
+        <input
+          matInput
+          type="number"
+          placeholder="Age"
+          formControlName="age"
+          autocomplete="off"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field class="w-100">
+        <input
+          matInput
+          type="number"
+          placeholder="Mobile"
+          formControlName="mobile"
+          autocomplete="off"
+          required
+        />
+      </mat-form-field>
+      <div fxLayout="row" fxLayoutAlign="end center" class="pt-3">
+        <button
+          mat-raised-button
+          color="primary"
+          [disabled]="userForm.invalid"
+          (click)="saveUser()"
+        >
+          <span>save</span>
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</form>
+<h2>Users</h2>
+<mat-table #table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+  <ng-container matColumnDef="fName">
+    <mat-header-cell *matHeaderCellDef mat-sort-header
+      >First Name</mat-header-cell
+    >
+    <mat-cell *matCellDef="let element">{{
+      element.payload.doc.data().firstName
+    }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="lName">
+    <mat-header-cell *matHeaderCellDef mat-sort-header
+      >Last Name</mat-header-cell
+    >
+    <mat-cell *matCellDef="let element">{{
+      element.payload.doc.data().lastName
+    }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="age">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Age</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{
+      element.payload.doc.data().age
+    }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="mobile">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Mobile</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{
+      element.payload.doc.data().mobile
+    }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="action">
+    <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <button
+        mat-icon-button
+        color="accent"
+        (click)="openEditUserDialog(element.payload.doc.id)"
+        title="Click here to edit this user"
+      >
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        color="warn"
+        (click)="deleteUserByDocId(element.payload.doc.id)"
+        title="Click here to delete this user"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+</mat-table>
